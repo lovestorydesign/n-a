@@ -937,16 +937,18 @@
     submitButton.textContent = 'Жіберілуде... / Отправляем...';
 
     try {
-      await fetch(RSVP_ENDPOINT, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: JSON.stringify({
-          name,
-          response: RSVP_RESPONSES[rsvpValue],
-          source: 'GitHub Pages'
-        })
-      });
+      const sent = navigator.sendBeacon(
+        RSVP_ENDPOINT,
+        new Blob([
+          JSON.stringify({
+            name,
+            response: RSVP_RESPONSES[rsvpValue],
+            source: 'GitHub Pages'
+          })
+        ], { type: 'text/plain;charset=utf-8' })
+      );
+
+      if (!sent) throw new Error('Не удалось поставить запрос в очередь');
 
       e.currentTarget.reset();
       alert('Рақмет! Жауабыңыз сақталды. / Спасибо! Ваш ответ сохранён.');
