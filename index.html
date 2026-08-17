@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Приглашение на свадьбу</title>
-<script src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"></script>
 <style>
   :root{
     --champagne: #f8f1e2;
@@ -19,12 +18,12 @@
     --burgundy: #4a1620;
     --burgundy-deep: #24080f;
     --burgundy-soft: #6e2632;
-    --serif: 'Cormorant Garamond', 'Georgia', serif;
-    --display: 'Playfair Display', 'Georgia', serif;
+    --serif: 'Georgia', serif;
+    --display: 'Montserrat', 'Arial', sans-serif;
     --script: 'KZ Vivaldi', cursive;
   }
 
-  @import url('https://fonts.googleapis.com/css2?family=Marck+Script&family=Playfair+Display:ital,wght@0,500;0,600;1,500&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&subset=latin,cyrillic&display=swap');
 
   @font-face {
     font-family: 'KZ Vivaldi';
@@ -126,6 +125,7 @@
 
   .hero-section{
     position:relative;
+    overflow:hidden;
   }
   .hero-section::before{
     content:'';
@@ -135,6 +135,11 @@
   }
   .hero-section > *{
     position:relative; z-index:1;
+  }
+  .hero-video{
+    position:absolute !important; inset:0; z-index:0 !important;
+    width:100%; height:100%; object-fit:cover; object-position:center;
+    pointer-events:none;
   }
 
   /* corner flourish frame */
@@ -199,6 +204,8 @@
     font-family:var(--script); font-size:clamp(46px,9vw,80px); color:var(--ink);
     margin:10px 0; line-height:1.1; font-weight:400;
   }
+  h1.names .fill{ min-width:0; padding:0; border-bottom:0; }
+  h1.names .fill:last-child{ display:block; }
   h1.names .amp{ color:var(--gold); font-family:var(--serif); font-style:italic; padding:0 8px; font-size:.55em; vertical-align:middle;}
   p.lead{
     max-width:540px; font-family:var(--serif); font-style:italic; font-size:19px; line-height:1.8;
@@ -468,7 +475,7 @@
     position: absolute; z-index: 1;
     top: -18px; left: calc((100vw - 100%) / -2);
     width: 100vw; height: 595px;
-    background: url('assets/decor2.jpg') left center / 100% auto no-repeat;
+    background: url('assets/shell-left.png') left center / 100% auto no-repeat;
     pointer-events: none;
   }
   .guests-text-right{
@@ -578,7 +585,7 @@
   .hero-section .glyph-divider{ display:none; }
 
   .guests-section{
-    padding:90px 0 100px; background:#f3efe7 url('assets/decor2.jpg') center top / 100% auto no-repeat;
+    padding:90px 0 100px; background:#f3efe7 url('assets/shell-left.png') center 190px / 100% auto no-repeat;
   }
   .guests-header{ margin:0 auto 105px; max-width:100%; }
   .guests-heading{ font-size:clamp(53px, 13vw, 96px); line-height:.63; letter-spacing:0; }
@@ -603,6 +610,7 @@
 
   .calendar-wedding{
     background-color:#f0ece3; color:#74512c;
+    padding-top:clamp(340px, 86vw, 760px) !important;
   }
   .calendar-wedding::before{ display:none !important; }
   .calendar-container::before{ content:'Ноябрь'; display:block; margin:0 auto 28px; font-family:var(--script); font-size:clamp(66px, 18vw, 102px); line-height:.65; color:#74431f; }
@@ -626,6 +634,7 @@
   .rsvp-section, .timer-section{ min-height:280px; padding:80px 24px; }
   .rsvp-section .eyebrow, .timer-section .eyebrow{ font-size:13px; }
   form.rsvp{ background:rgba(248,241,227,.93); border-radius:0; }
+  .timer-section{ background-image:none !important; background-color:#f3efe7; }
   footer{ background:#f3efe7; color:#76512d; }
 
   @media (max-width:480px){
@@ -655,9 +664,9 @@
 
   <!-- CURTAIN INTRO -->
   <div id="curtain-screen">
-    <img src="assets/curtain.jpg" alt="curtain" class="curtain-image">
+    <img src="assets/curtain-original.png" alt="curtain" class="curtain-image">
     <video id="curtain-video" class="curtain-video" muted playsinline>
-      <source src="assets/curtain_video.mp4" type="video/mp4">
+      <source src="assets/curtain-video-original.mp4" type="video/mp4">
     </video>
   </div>
 
@@ -677,6 +686,9 @@
 
     <!-- Hero -->
     <section class="hero-section frame reveal-up" style="background-image: url('assets/hero.jpg'); background-size: cover; background-position: center;">
+      <video class="hero-video" autoplay muted loop playsinline aria-hidden="true">
+        <source src="assets/hero-video-original.mp4" type="video/mp4">
+      </video>
       <div class="corner tl"><svg viewBox="0 0 56 56"><path d="M2 2 C2 30 30 54 54 54" stroke="currentColor" fill="none" stroke-width="1" style="color:var(--gold)"/><circle cx="2" cy="2" r="2.5" fill="var(--gold)"/></svg></div>
       <div class="corner tr"><svg viewBox="0 0 56 56"><path d="M2 2 C2 30 30 54 54 54" stroke="currentColor" fill="none" stroke-width="1" style="color:var(--gold)"/><circle cx="2" cy="2" r="2.5" fill="var(--gold)"/></svg></div>
       <div class="corner bl"><svg viewBox="0 0 56 56"><path d="M2 2 C2 30 30 54 54 54" stroke="currentColor" fill="none" stroke-width="1" style="color:var(--gold)"/><circle cx="2" cy="2" r="2.5" fill="var(--gold)"/></svg></div>
@@ -708,7 +720,7 @@
     </section>
 
     <!-- Calendar / date -->
-    <section class="calendar-wedding reveal-up" style="background-image: url('assets/decor1.jpg'); background-size: 100% auto; background-repeat: no-repeat; background-position: center top; min-height: auto; padding: 20px 20px 60px; position: relative;">
+    <section class="calendar-wedding reveal-up" style="background-image: url('assets/calendar-decoration.png'); background-size: 100% auto; background-repeat: no-repeat; background-position: center top; min-height: auto; padding: 20px 20px 60px; position: relative;">
       <div class="calendar-container">
         <div class="weekdays">
           <span>ПН</span><span>ВТ</span><span>СР</span><span>ЧТ</span><span>ПТ</span><span>СБ</span><span>ВС</span>
@@ -774,7 +786,7 @@
     </section>
 
     <!-- Venue -->
-    <section class="ornate-bg reveal-up venue-section" style="background-image: url('assets/organizer_bg.jpg'); background-size: cover; background-position: center;">
+    <section class="ornate-bg reveal-up venue-section" style="background-image: url('assets/venue-original.png'); background-size: cover; background-position: center;">
       <div class="eyebrow" style="color: white;">Той туралы</div>
       <div class="glyph-divider"><span class="ln"></span><span class="dm"></span><span class="ln"></span></div>
       <div class="venue-name" style="color: white;">Agugai</div>
@@ -783,7 +795,7 @@
     </section>
 
     <!-- RSVP -->
-    <section class="ornate-bg reveal-up rsvp-section" style="background-image: url('assets/section_bg.jpg'); background-size: cover; background-position: center;">
+    <section class="ornate-bg reveal-up rsvp-section" style="background-image: url('assets/shell-right.png'), url('assets/paper-texture.png'); background-size: 100% auto, cover; background-repeat: no-repeat, repeat; background-position: center top, center;">
       <h2 class="section-heading" style="font-size:42px; color:white; margin:10px 0 4px; font-weight:400; text-shadow: 1px 1px 2px rgba(0,0,0,0.5);">Сауалнама / Анкета</h2>
       <form class="rsvp" id="rsvp-form" onsubmit="return false;">
         <div style="font-family:var(--serif); font-style:italic; font-size:16px; color:var(--ink-soft); margin-bottom:10px;">
@@ -801,13 +813,10 @@
         <button class="btn" type="submit">Жіберу / Отправить</button>
       </form>
 
-      <div id="download-section" style="display: none; margin-top: 30px; text-align: center;">
-        <a id="download-excel" href="#" class="btn" style="display: inline-block;">Скачать таблицу гостей</a>
-      </div>
     </section>
 
     <!-- Timer section -->
-    <section class="ornate-bg reveal-up timer-section" style="background-image: url('assets/Таймер Мы скажем «Да» через….jpg'); background-size: cover; background-position: center;">
+    <section class="ornate-bg reveal-up timer-section" style="background-color:#f3efe7;">
       <div class="section-heading" style="font-size:24px; color:#333; margin-bottom:20px; text-shadow: 1px 1px 2px rgba(255,255,255,0.8);">Біз «Иә» дейміз…</div>
       <div class="glyph-divider"><span class="ln"></span><span class="dm"></span><span class="ln"></span></div>
       <div class="section-heading" style="font-size:24px; color:#333; margin-bottom:20px; text-shadow: 1px 1px 2px rgba(255,255,255,0.8);">Мы скажем «Да» через…</div>
@@ -889,20 +898,15 @@
     els.forEach(el=> io.observe(el));
   }
 
-  // Excel data storage and form handling
-  let guestData = JSON.parse(localStorage.getItem('guestData')) || [];
-
-  // Check for #zver hash to show download link
-  function checkHash() {
-    if (window.location.hash === '#zver') {
-      document.getElementById('download-section').style.display = 'block';
-    }
-  }
-  window.addEventListener('hashchange', checkHash);
-  checkHash();
+  const RSVP_ENDPOINT = 'https://script.google.com/macros/s/AKfycby_CMuUfmY3sF6K5S66VAJROpotyqISBcoPqCHjz0-RXQ-t3aMrzQZOtjKNdaNyy8z5/exec';
+  const RSVP_RESPONSES = {
+    'Иә, міндетті түрде қатысамын / Да, обязательно буду': 'Обязательно приду!',
+    'Иә, жұбайыммен бірге қатысамын / Да, буду с супругом / супругой': 'Приду с супругом/супругой',
+    'Өкінішке қарай, қатыса алмаймын / К сожалению, не смогу присутствовать': 'К сожалению, не смогу'
+  };
 
   // Form submission handler
-  document.getElementById('rsvp-form').addEventListener('submit', function(e) {
+  document.getElementById('rsvp-form').addEventListener('submit', async function(e) {
     e.preventDefault();
     
     const nameInput = document.getElementById('guest-name');
@@ -927,47 +931,31 @@
       return;
     }
     
-    // Save guest data
-    const guest = {
-      name: name,
-      response: rsvpValue,
-      timestamp: new Date().toLocaleString('ru-RU')
-    };
-    
-    guestData.push(guest);
-    localStorage.setItem('guestData', JSON.stringify(guestData));
-    
-    // Clear form
-    nameInput.value = '';
-    for (const radio of rsvpRadios) {
-      radio.checked = false;
-    }
-    
-    alert('Спасибо! Ваш ответ сохранен.');
-  });
+    const submitButton = e.currentTarget.querySelector('button[type="submit"]');
+    const buttonText = submitButton.textContent;
+    submitButton.disabled = true;
+    submitButton.textContent = 'Жіберілуде... / Отправляем...';
 
-  // Download Excel file
-  document.getElementById('download-excel').addEventListener('click', function(e) {
-    e.preventDefault();
-    
-    if (guestData.length === 0) {
-      alert('Нет данных для сохранения');
-      return;
+    try {
+      await fetch(RSVP_ENDPOINT, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify({
+          name,
+          response: RSVP_RESPONSES[rsvpValue],
+          source: 'GitHub Pages'
+        })
+      });
+
+      e.currentTarget.reset();
+      alert('Рақмет! Жауабыңыз сақталды. / Спасибо! Ваш ответ сохранён.');
+    } catch (error) {
+      alert('Жауап жіберілмеді. Интернетті тексеріп, қайталап көріңіз. / Не удалось отправить ответ. Проверьте интернет и попробуйте ещё раз.');
+    } finally {
+      submitButton.disabled = false;
+      submitButton.textContent = buttonText;
     }
-    
-    // Prepare data for Excel
-    const worksheetData = [
-      ['Имя', 'Ответ', 'Дата и время'],
-      ...guestData.map(guest => [guest.name, guest.response, guest.timestamp])
-    ];
-    
-    // Create workbook
-    const worksheet = XLSX.utils.aoa_to_sheet(worksheetData);
-    const workbook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(workbook, worksheet, 'Гости');
-    
-    // Download file
-    XLSX.writeFile(workbook, 'Гости свадьбы.xlsx');
   });
 </script>
 
